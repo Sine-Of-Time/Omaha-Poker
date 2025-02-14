@@ -1,0 +1,14 @@
+The following is an desc of the code in this repo to help understand the code.
+First I will go over the Macro's.
+1.Macros
+#define MAX_COMBINATIONS 60 was created as in Omaha poker, each player is dealt 4 cards,
+and the user must use 2 cards along with the 3 out of the 5 community cards to form an 5-card hand.
+The total possible combos of cards in an players hand can then based on this be calculated to be 60.
+
+#define BIT(n) (1UL << (n)) was created to generate an unsign long vlaue with only the bit at n being set.
+An example of this would be BIT(3) which when counting from zero changed the 4th bit to 1
+
+#define IS_SET(n,v) ((v) & BIT(n)) uses an bitwise AND and BIT(n) to check if the bit at
+n is set to value v.
+
+#define BIT_SET(n,v) ((v) |= BIT(n)) uses bitwise OR assignment to update the bit at n with the value of V
