@@ -11,4 +11,15 @@ An example of this would be BIT(3) which when counting from zero changed the 4th
 #define IS_SET(n,v) ((v) & BIT(n)) uses an bitwise AND and BIT(n) to check if the bit at
 n is set to value v.
 
-#define BIT_SET(n,v) ((v) |= BIT(n)) uses bitwise OR assignment to update the bit at n with the value of V
+#define BIT_SET(n,v) ((v) |= BIT(n)) uses bitwise OR assignment to update the bit at n with the value of v
+
+2.Enums
+enum Value is used to represent the rank of cards by assigning cards an value of 1 for ONE, two for 2 and so on. It can be noted ACE is mapped to 14. This is how cards are referenced.
+
+enum suit simply maps each suit to an value of Club=0, ... Spade =3
+
+3.Structs
+struct card is designed to represent an single card with an enum val and enum suit
+
+struct hand is designed to represent an players hand.  
+
