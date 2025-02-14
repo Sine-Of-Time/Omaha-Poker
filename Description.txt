@@ -21,5 +21,6 @@ enum suit simply maps each suit to an value of Club=0, ... Spade =3
 3.Structs
 struct card is designed to represent an single card with an enum val and enum suit
 
-struct hand is designed to represent an players hand.  
+struct hand is designed to represent an hand where card array holds 5 cards, card_count holds the freq of each card rank in the hand where 2 is the two card thru Ace. If an hand contains two aces, then the value for ace is 2 and so on  
 
+struct player is used to represent all possible 60 5-card hands an player can have from their 4 cards and the 5 community cards and also the based hand the player can have based on current cards which is called 
