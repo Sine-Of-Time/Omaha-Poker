@@ -27,5 +27,10 @@ struct player is used to represent all possible 60 5-card hands an player can ha
 
 4.Functions 
 
-struct card parse(const char* card) uses two switch statements to parse two characters, IE AS(Ace of spades) or TH(Ten of Hearts) into a struct card with correct value and suit variables. Speficaly it uses the first switch to map the first letter to corresponding enum and the same for the second swtich 
+struct card parse(const char* card) uses two switch statements to parse two characters, IE AS(Ace of spades) or TH(Ten of Hearts) into a struct card with correct value and suit variables. Speficaly it uses the first switch to map the first letter to corresponding enum and the same for the second switch 
+
+is_flush(struct hand *h) compairs the suit of each card to this first to check is the hand has the same suit for all of its cards. Return 1 is true and 0 if false
+
+is_straight(struct hand h*) is uses Ace   
+
 
