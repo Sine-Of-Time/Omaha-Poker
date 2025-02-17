@@ -1,11 +1,11 @@
-The following is an desc of the code in this repo to help understand the code.
-First I will go over the Macro's.
+The following is an description of the code in this repo to help understand the code.
+First I will go over the Macros.
 1.Macros
 #define MAX_COMBINATIONS 60 was created as in Omaha poker, each player is dealt 4 cards,
 and the user must use 2 cards along with the 3 out of the 5 community cards to form an 5-card hand.
 The total possible combos of cards in an players hand can then based on this be calculated to be 60.
 
-#define BIT(n) (1UL << (n)) was created to generate an unsign long vlaue with only the bit at n being set.
+#define BIT(n) (1UL << (n)) was created to generate an unsign long value with only the bit at n being set.
 An example of this would be BIT(3) which when counting from zero changed the 4th bit to 1
 
 #define IS_SET(n,v) ((v) & BIT(n)) uses an bitwise AND and BIT(n) to check if the bit at
@@ -14,23 +14,30 @@ n is set to value v.
 #define BIT_SET(n,v) ((v) |= BIT(n)) uses bitwise OR assignment to update the bit at n with the value of v
 
 2.Enums
-enum Value is used to represent the rank of cards by assigning cards an value of 1 for ONE, two for 2 and so on. It can be noted ACE is mapped to 14. This is how cards are referenced.
+enum Value is used to represent the rank of cards by assigning cards a value of 1 for ONE, two for 2 and so on. It can be noted ACE is mapped to 14. This is how cards are referenced.
 
 enum suit simply maps each suit to an value of Club=0, ... Spade =3
 
-3.Structs
-struct card is designed to represent an single card with an enum val and enum suit
+3. Structs
+struct card is designed to represent a single card with an enum value and enum suit
 
-struct hand is designed to represent an hand where card array holds 5 cards, card_count holds the freq of each card rank in the hand where 2 is the two card thru Ace. If an hand contains two aces, then the value for ace is 2 and so on  
+struct hand is designed to represent a hand where the card array holds 5 cards, and card_count holds the freq of each card rank in the hand where 2 is the two card through Ace. If a hand contains two aces, then the value for an ace is 2, and so on  
 
-struct player is used to represent all possible 60 5-card hands an player can have from their 4 cards and the 5 community cards and also the based hand the player can have based on current cards which is called 
+struct player is used to represent all possible 60 5-card hands a player can have from their 4 cards and the 5 community cards and also the based hand the player can have based on current cards which is called 
 
 4.Functions 
 
-struct card parse(const char* card) uses two switch statements to parse two characters, IE AS(Ace of spades) or TH(Ten of Hearts) into a struct card with correct value and suit variables. Speficaly it uses the first switch to map the first letter to corresponding enum and the same for the second switch 
+struct card parse(const char* card) uses two switch statements to parse two characters, IE AS(Ace of spades) or TH(Ten of Hearts) into a struct card with correct value and suit variables. Specifically, it uses the first switch to map the first letter to the corresponding enum and the same for the second switch 
 
-is_flush(struct hand *h) compairs the suit of each card to this first to check is the hand has the same suit for all of its cards. Return 1 is true and 0 if false
+is_flush(struct hand *h) compares the suit of each card to this first to check is the hand has the same suit for all of its cards. Return 1 is true and 0 if false
 
-is_straight(struct hand h*) is uses Ace   
+is_straight(struct hand h*) is used to check if the hand is straight by first accounting for an Ace-Low special case and then iterating over the card_count array. It uses a cntr to increment for each consecutive rank and if it reaches a five we return 1    
 
+is_straight_flush(struct hand *h) is used to check if the hand is straight and flush via calls to both respective functions
 
+eval_strength(struct hand *h) is one of the more complicated functions and is used to compute a hands bit vector and encode it straight into the bit vector format to allow for easy comparison between hands. It works by first initing the vector to zero, then iterating through each rank of the hand, if one instance of an
+rank is present, it sets the corresponding bit in the range 0-12, if two cards of the same rank are found, it sets a corresponding bit in the range 13-25, the same applies to three of a kind and four of a kind with ranges of 26-38 and 43-n respectively. There is an offset to be for special cases such as Ace-Low straight. It also checks if it is straight via bit 39, flush via bit 40 and straight flush via bit 55. It results in a completed bit vector
+
+eval_players_best_hand(struct player *p) is used to find the best possible 5-card combo for an input player. Done via iterating over all possible 60 combos and updates p->best_hand each time a better hand is found. 
+
+There are a few other functions that do not warrant documentation for me, but the general idea behind the code is that we used bit-level encoding to represent hand strength, allowing for a straightforward comparison between hands via comparison for two unsigned integers 
