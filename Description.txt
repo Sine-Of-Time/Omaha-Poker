@@ -41,9 +41,13 @@ rank is present, it sets the corresponding bit in the range 0-12, if two cards o
 eval_players_best_hand(struct player *p) is used to find the best possible 5-card combo for an input player. Done via iterating over all possible 60 combos and updates p->best_hand each time a better hand is found. 
 
 There are a few other functions that do not warrant documentation for me, but the general idea behind the code is that we used bit-level encoding to represent hand strength, allowing for a straightforward comparison between hands via comparison for two unsigned integers 
-
-This C program implements an Omaha Poker hand evaluator. It defines structures for cards, hands, and players,
-and uses enums to represent card values and suits. The code parses input strings to create card objects, generates all 60 
-valid 5-card hand combinations from a player's 4 cards and the 5 community cards, and uses bit-level encoding to assess the 
-strength of each hand (considering flushes, straights, full houses, etc.). It then compares the strongest hands of two 
+=======================================
+This C program implements an Omaha Poker hand evaluator. 
+It defines structures for cards, hands, and players,
+and uses enums to represent card values and suits. The code parses input strings to create card objects,
+generates all 60 
+valid 5-card hand combinations from a player's 4 cards and the 5 community cards,
+and uses bit-level encoding to assess the 
+strength of each hand (considering flushes, straights, full houses, etc.). 
+It then compares the strongest hands of two 
 players to determine the winner.
